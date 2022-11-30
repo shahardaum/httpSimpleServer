@@ -33,7 +33,7 @@ const server = http.createServer((req, res) => {
     keepAliveMsecs: 3000,
   });
 
-  http: log.cyan();
+  log.cyan(req.headers.connection);
 
   res.setHeader("Content-Type", "application/json");
   res.setHeader("agenda", "political");
@@ -49,7 +49,7 @@ const server = http.createServer((req, res) => {
     pathname: `${url_data?.pathname}`,
     querystring: { month: queryObject?.month, temp: queryObject?.temp },
     user_agent: `${user_agent.toString()}`,
-    connection: httpAgent.connection,
+    connection: `${req.headers.connection}`,
   };
   let href = res.end(JSON.stringify(obj, null, 2));
   // log.cyan(querystring.unescape("month"));
