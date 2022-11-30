@@ -33,9 +33,13 @@ const server = http.createServer((req, res) => {
     keepAliveMsecs: 3000,
   });
 
-  http: log.cyan(httpAgent["keepAlive"]);
+  http: log.cyan();
 
   res.setHeader("Content-Type", "application/json");
+  res.setHeader("agenda", "political");
+  res.setHeader("anything", "goes");
+  res.setHeader(`some-single-value`, `some-single-value`);
+
   let obj = {
     href: `http://${HOST}:${PORT}/${req?.url}`,
     method: `${req?.method}`,
@@ -45,12 +49,11 @@ const server = http.createServer((req, res) => {
     pathname: `${url_data?.pathname}`,
     querystring: { month: queryObject?.month, temp: queryObject?.temp },
     user_agent: `${user_agent.toString()}`,
-    connection: httpAgent,
+    connection: httpAgent.connection,
   };
   let href = res.end(JSON.stringify(obj, null, 2));
   // log.cyan(querystring.unescape("month"));
   // res.end(obj);
-  log.cyan();
 });
 
 //have the server listen to a given port
